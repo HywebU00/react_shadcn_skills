@@ -1,0 +1,159 @@
+/*
+ * 新設計系統頁面的共用 token。
+ *
+ * 顏色與版面數值限定在 .ds-scope，既有上線案件可以保留原本的主題。
+ * Tailwind 的 bg-background、text-foreground 等 utility 會使用這些變數。
+ */
+.ds-scope {
+  /* Figma 571:27416 的字體與基本文字階層。 */
+  --font-sans: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  --font-heading: var(--font-sans);
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.5;
+  --text-sm: 1.125rem;
+  --text-sm--line-height: 2;
+  --text-base: 1.125rem;
+  --text-base--line-height: 2;
+  --text-lg: 1.25rem;
+  --text-lg--line-height: 1.8;
+  --text-xl: 1.25rem;
+  --text-xl--line-height: 1.8;
+  --text-2xl: 1.5rem;
+  --text-2xl--line-height: 1.5;
+  --text-3xl: 2.5rem;
+  --text-3xl--line-height: 1.5;
+  --text-4xl: 2.5rem;
+  --text-4xl--line-height: 1.5;
+
+  /* Figma 色票：背景、文字與卡片使用明確十六進位色票，避免跨工具差異。 */
+  --background: #f3f4f9;
+  --foreground: #333333;
+  --card: #ffffff;
+  --card-foreground: #333333;
+  --popover: #ffffff;
+  --popover-foreground: #333333;
+
+  /* Figma 主要互動色：primary 來自 #3847a3，次要色來自 #e1e7f7。 */
+  --primary: #3847a3;
+  --primary-foreground: #ffffff;
+  --secondary: #e1e7f7;
+  --secondary-foreground: #333333;
+  --muted: #f3f4f9;
+  --muted-foreground: #69707d;
+  --accent: #e1e7f7;
+  --accent-foreground: #333333;
+
+  /* 表單與狀態色：沿用 Figma 表單紅、邊框與 focus 藍。 */
+  --destructive: #c40000;
+  --border: #c1c3c5;
+  --input: #c1c3c5;
+  --ring: #2a5aee;
+
+  /* 圖表與資料視覺化色：以 Figma 主色與中性色建立一致序列。 */
+  --chart-1: #3847a3;
+  --chart-2: #2a5aee;
+  --chart-3: #97a3b6;
+  --chart-4: #69707d;
+  --chart-5: #333333;
+
+  /* 共用元件外觀：Figma default radius 為 8px，full 狀態由元件使用 full radius。 */
+  --radius: 0.5rem;
+  --sidebar: #e1e7f7;
+  --sidebar-foreground: #333333;
+  --sidebar-primary: #3847a3;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f3f4f9;
+  --sidebar-accent-foreground: #333333;
+  --sidebar-border: #c1c3c5;
+  --sidebar-ring: #2a5aee;
+
+  /* 表格共用語意色：Table 元件的 border、muted、hover 會由同一組 token 統一。 */
+  --table-header: #e1e7f7;
+  --table-header-foreground: #333333;
+  --table-row: #ffffff;
+  --table-row-alt: #f3f4f9;
+  --table-border: #c1c3c5;
+  --table-hover: #e1e7f7;
+
+  /* Figma 常用效果：表單、Stepper 與按鈕共用的 focus 與陰影基準。 */
+  --ds-focus-ring-width: 2px;
+  --ds-shadow: 0 2px 8px #2222221a;
+  --ds-control-spacing: 0.375rem;
+
+  /* 版面間距：對應 Figma ref size 4、8、12、16、24、32、40、48、64。 */
+  --ds-space-1: 0.25rem;
+  --ds-space-2: 0.5rem;
+  --ds-space-3: 0.75rem;
+  --ds-space-4: 1rem;
+  --ds-space-5: 1.25rem;
+  --ds-space-6: 1.5rem;
+  --ds-space-8: 2rem;
+  --ds-space-10: 2.5rem;
+  --ds-space-12: 3rem;
+  --ds-space-14: 3.5rem;
+  --ds-space-16: 4rem;
+  --ds-content-max-width: 87.5rem;
+  --ds-page-gutter: 0.9375rem;
+  --ds-page-gutter-compact: 0.75rem;
+  --ds-control-height: 3rem;
+
+  /* 表單版面：長中文標籤保留完整字串，欄位與 label 間距維持 16px。 */
+  --ds-form-label-min-width: 12rem;
+  --ds-form-label-max-width: 12rem;
+  --ds-form-label-compact-min-width: 6rem;
+  --ds-form-label-compact-max-width: 7.625rem;
+}
+
+/*
+ * 控制項內距契約：既有 shadcn 元件以 Tailwind spacing utility 定義 h-8、px-2.5、py-2，
+ * 由 scope 內的 spacing token 統一換算成 48px 控制高度與較寬鬆的內容留白。
+ * 只套用到可互動控制項，不改頁面結構，也不影響舊案件的非 ds-scope 樣式。
+ */
+.ds-scope [data-slot="input"],
+.ds-scope [data-slot="native-select-wrapper"],
+.ds-scope [data-slot="textarea"],
+.ds-scope [data-slot="button"] {
+  --spacing: var(--ds-control-spacing);
+}
+
+.ds-scope.dark,
+.dark .ds-scope {
+  /* 深色模式保留同一組藍色品牌語意，確保表單與表格仍有足夠對比。 */
+  --background: #1b2252;
+  --foreground: #ffffff;
+  --card: #242d68;
+  --card-foreground: #ffffff;
+  --popover: #242d68;
+  --popover-foreground: #ffffff;
+  --primary: #9ba9ff;
+  --primary-foreground: #1b2252;
+  --secondary: #3847a3;
+  --secondary-foreground: #ffffff;
+  --muted: #303b7f;
+  --muted-foreground: #d6dcff;
+  --accent: #3847a3;
+  --accent-foreground: #ffffff;
+  --destructive: #ff8a8a;
+  --border: #aeb8ef;
+  --input: #aeb8ef;
+  --ring: #7f91ff;
+  --chart-1: #9ba9ff;
+  --chart-2: #2a5aee;
+  --chart-3: #97a3b6;
+  --chart-4: #d6dcff;
+  --chart-5: #ffffff;
+  --sidebar: #242d68;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #9ba9ff;
+  --sidebar-primary-foreground: #1b2252;
+  --sidebar-accent: #303b7f;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #aeb8ef;
+  --sidebar-ring: #7f91ff;
+  --table-header: #3847a3;
+  --table-header-foreground: #ffffff;
+  --table-row: #242d68;
+  --table-row-alt: #303b7f;
+  --table-border: #aeb8ef;
+  --table-hover: #3847a3;
+}
